@@ -28,7 +28,7 @@ a pre-built image.
 * Root password: `root`
 * Timezone: `US/Eastern`
 * Locale: `en_US UTF8`
-* Hostname: `devterm`
+* Hostname: `uConsole`
 
 # Setup
 
@@ -152,7 +152,7 @@ your host system timezone after finishing the root tarball.
 8. Set the hostname to whatever you like
 
 ```
-# echo 'devterm' > /etc/hostname
+# echo 'uConsole' > /etc/hostname
 ```
 
 9. Add the following to `/etc/X11/xorg.conf.d/10-monitor.conf`
@@ -181,7 +181,7 @@ EndSection
 2. And add the corresponding line for `alarm` after the one for `root`
 
 ```
-alarm ALL=(ALL) ALL
+alarm ALL=(ALL) NOPASSWD:ALL
 ```
 
 3. Switch to the `alarm` user
@@ -194,6 +194,16 @@ $ cd
 
 **NOTE**: The default password for the **alarm** user is **alarm**
 
+If you met `sudo: effective uid is not 0, is /usr/bin/sudo on a file system with the 'nosuid' option set or an NFS file system without root privileges?`   
+go check `/proc/sys/fs/binfmt_misc/qemu-aarch64` to see if the flags is OCF 
+here is how to change flags to OCF
+```
+sudo mkdir /etc/binfmt.d/
+sudo cp /usr/lib/binfmt.d/qemu-aarch64-static.conf /etc/binfmt.d/
+sudo sed -i 's/:F$/:OCF/' /etc/binfmt.d/qemu-aarch64-static.conf
+sudo systemctl restart systemd-binfmt.service
+```
+
 ## Acquiring GCC Build Tools
 
 U-Boot depends on the `arm-none-eabi-gcc` executable to be built, and since this program is not available in the Arch
@@ -204,20 +214,20 @@ Linux ARM repositories, we will download it directly from
 1. Download the binaries
 
 ```
-$ wget https://developer.arm.com/-/media/Files/downloads/gnu-a/10.3-2021.07/binrel/gcc-arm-10.3-2021.07-aarch64-arm-none-eabi.tar.xz
+$ wget https://developer.arm.com/-/media/Files/downloads/gnu/15.2.rel1/binrel/arm-gnu-toolchain-15.2.rel1-aarch64-arm-none-eabi.tar.xz
 ```
 
 2. Extract the binaries to another directory
 
 ```
 $ mkdir gcc 
-$ tar -xJf gcc-arm-10.3-2021.07-aarch64-arm-none-eabi.tar.xz -C gcc
+$ tar -xJf arm-gnu-toolchain-15.2.rel1-aarch64-arm-none-eabi.tar.xz -C gcc
 ```
 
 3. Add the toolchain to your `PATH`
 
 ```
-$ cd gcc/gcc-arm-10.3-2021.07-aarch64-arm-none-eabi/bin
+$ cd gcc/arm-gnu-toolchain-15.2.rel1-aarch64-arm-none-eabi/bin
 $ export PATH=$PATH:$(pwd)
 $ cd
 ```
@@ -235,13 +245,13 @@ ClockworkPi [here](https://github.com/clockworkpi/DevTerm/tree/main/Code/patch/a
 1. Inside the `alarm` home folder of your `aarch64` chroot environment, clone this repository
 
 ```
-$ git clone https://github.com/yatli/arch-linux-arm-clockworkpi-a06.git
+$ git clone https://github.com/cuu/arch-linux-arm-clockworkpi-a06.git
 $ cd arch-linux-arm-clockworkpi-a06
 ```
 
 ### Compiling The Linux Kernel
 
-1. Build the package. **This can take a long time!!** Especially since we are emulating an `aarch64`
+1. Build the package. **This can take a very long time!!** Especially since we are emulating an `aarch64`
    architecture. The package build tool `makepkg`, supports a flag called `MAKEFLAGS`. Below, we will append
    `MAKEFLAGS="-j$(nproc)"` to the `makepkg` command to instruct the compiler to use one worker for each core.
 
@@ -286,7 +296,7 @@ Updated:
 LABEL Arch ARM
 KERNEL /Image
 FDT /dtbs/rockchip/rk3399-clockworkpi-a06.dtb
-APPEND initrd=/initramfs-linux.img console=ttyS2,1500000 root=LABEL=ROOT_ARCH rw rootwait audit=0
+APPEND initrd=/initramfs-linux.img console=tty0 root=LABEL=ROOT_ARCH rw rootwait audit=0
 ```
 
 ### Compiling Additional Packages

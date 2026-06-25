@@ -1,8 +1,8 @@
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index fc16a57e..8729c8e2 100644
+index 644ba961..aab5db79 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -121,6 +121,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3368) += \
+@@ -133,6 +133,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3368) += \
  	rk3368-px5-evb.dtb \
  
  dtb-$(CONFIG_ROCKCHIP_RK3399) += \
