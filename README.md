@@ -344,14 +344,14 @@ Optionally, we can save the built packages.
 ```
  # cd root
  # mv home/alarm/arch-linux-arm-clockworkpi-a06 ../
- # tar cpJf ../arch-linux-clockworkpi-a06-root-fs.tar.xz .
+ # tar cpJf ../arch-linux-clockworkpi-a06-uconsole-root-fs.tar.xz .
  # cd ..
 ```
 
 Change ownership of the tarball and exit the `root` account
 
 ```
- # chown <user>:<user> arch-linux-clockworkpi-a06-root-fs.tar.xz
+ # chown <user>:<user> arch-linux-clockworkpi-a06-uconsole-root-fs.tar.xz
  # exit
 ```
 
@@ -412,7 +412,7 @@ Running `fsck -y /dev/sdX1` on an external system can fix this issue.
 
 ```
 # sudo su
-# bsdtar -xpf arch-linux-clockworkpi-a06-root-fs.tar.xz -C /mnt
+# bsdtar -xpf arch-linux-clockworkpi-a06-uconsole-root-fs.tar.xz -C /mnt
 # echo 'UUID="<SWAP PARTITION UUID HERE>" none  swap  sw  0 0' >> /mnt/etc/fstab
 # exit
 ```
