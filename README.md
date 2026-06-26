@@ -1,4 +1,4 @@
-# Arch Linux ARM for the ClockworkPi DevTerm A06
+# Arch Linux ARM for the ClockworkPi uConsole A06
 
 Maintainer: Yatao Li
 
@@ -8,10 +8,10 @@ License: LGPL-2.1
 
 # Introduction
 
-This document will walk you through installing [Arch Linux ARM](https://archlinuxarm.org/) on the DevTerm A06.
+This document will walk you through installing [Arch Linux ARM](https://archlinuxarm.org/) on the uConsole A06.
 
 We will create a root file system based on the **rock64** architecture (rk3328). This will include patching our
-bootloader and kernel with the patches provided by ClockworkPi. Technically, the DevTerm A06's architecture is based on
+bootloader and kernel with the patches provided by ClockworkPi. Technically, the uConsole A06's architecture is based on
 the rk3399.
 
 ## Caution
@@ -234,7 +234,7 @@ $ cd
 
 ## Compiling The Packages
 
-This repository contains pre-configured and patched Arch Linux packages for the DevTerm A06. The Linux kernel and U-Boot
+This repository contains pre-configured and patched Arch Linux packages for the uConsole A06. The Linux kernel and U-Boot
 are based off the **rock64** variants, already available in Arch Linux ARM, with patches provided by ClockWorkPi.
 
 You can find these patches from
@@ -437,7 +437,7 @@ Running `fsck -y /dev/sdX1` on an external system can fix this issue.
 
 ## Done!
 
-The SD card is now ready to be booted by the DevTerm! Good luck!
+The SD card is now ready to be booted by the uConsole! Good luck!
 
 ## Next Steps
 
@@ -446,16 +446,6 @@ You will want to set up Wi-Fi on first boot. Use the command `nmtui`.
 Check out the [post-install suggestions](https://wiki.archlinux.org/title/General_recommendations) from Arch Linux for
 further configuration.
 
-## Troubleshooting
-
-If you run into issues where you see no screen output or the DevTerm will not boot, please check the debugging output
-via UART:
-
-1. Connect a micro-USB cable to the UART port on the *inside* of your DevTerm, near where the printer ribbon cable is
-   connected
-2. Connect the other end to your Linux system, you should now see a new device: `/dev/ttyUSB0`
-3. Monitor the connection with `sudo stty -F /dev/ttyUSB0 1500000 && sudo cat /dev/ttyUSB0`
-4. Power on your DevTerm and monitor for errors
 
 # Acknowledgements
 
