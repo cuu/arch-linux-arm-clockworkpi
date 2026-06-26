@@ -437,7 +437,10 @@ Running `fsck -y /dev/sdX1` on an external system can fix this issue.
 
 ## Done!
 
-The SD card is now ready to be booted by the uConsole!  you can use follow commands to expand filesystem size to fullfil SD card.
+The SD card is now ready to be booted by the uConsole!  
+
+To expand the filesystem and use the entire SD card capacity, run the following commands:
+
 ```
 sudo growpart /dev/sdX 3
 sudo resize.f2fs /dev/sdX3 
