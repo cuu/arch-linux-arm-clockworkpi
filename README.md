@@ -195,8 +195,8 @@ $ cd
 **NOTE**: The default password for the **alarm** user is **alarm**
 
 If you met `sudo: effective uid is not 0, is /usr/bin/sudo on a file system with the 'nosuid' option set or an NFS file system without root privileges?`   
-go check `/proc/sys/fs/binfmt_misc/qemu-aarch64` to see if the flags is OCF 
-here is how to change flags to OCF
+go check `/proc/sys/fs/binfmt_misc/qemu-aarch64` to see if the flags is OCF   
+here is how to change flags to OCF  
 ```
 sudo mkdir /etc/binfmt.d/
 sudo cp /usr/lib/binfmt.d/qemu-aarch64-static.conf /etc/binfmt.d/
@@ -437,7 +437,13 @@ Running `fsck -y /dev/sdX1` on an external system can fix this issue.
 
 ## Done!
 
-The SD card is now ready to be booted by the uConsole! Good luck!
+The SD card is now ready to be booted by the uConsole!  you can use follow commands to expand filesystem size to fullfil SD card.
+```
+sudo growpart /dev/sdX 3
+sudo resize.f2fs /dev/sdX3 
+```
+
+Good luck!
 
 ## Next Steps
 
