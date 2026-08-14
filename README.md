@@ -296,7 +296,7 @@ Updated:
 LABEL Arch ARM
 KERNEL /Image
 FDT /dtbs/rockchip/rk3399-clockworkpi-a06.dtb
-APPEND initrd=/initramfs-linux.img console=tty0 root=LABEL=ROOT_ARCH rw rootwait audit=0
+APPEND initrd=/initramfs-linux.img console=tty0 root=LABEL=ROOT_ARCH rw rootwait audit=0 brcmfmac.feature_disable=0x82000
 ```
 
 ### Compiling Additional Packages
